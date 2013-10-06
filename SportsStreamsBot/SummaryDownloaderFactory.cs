@@ -11,7 +11,7 @@ namespace SportsStreamsBot
 		private class DoNothingDownloader : ISummaryDownloader
 		{
 
-			public string GetGameSummary(string month, string gameID)
+			public string GetGameSummary(string season, string month, string gameID)
 			{
 				return string.Empty;
 			}
