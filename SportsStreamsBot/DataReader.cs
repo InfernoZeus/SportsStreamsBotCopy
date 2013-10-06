@@ -42,7 +42,7 @@ namespace SportsStreamsBot
 
 				// I don't know what all the parts are, but I know enough...
 				/*
-					0 seasonid			2012|
+					0 seasonid			1213|
 					1 gameTime(E)		2013-05-18 20:00:00|
 					2 month of season	3|
 					3 gameid			41200216|
@@ -63,6 +63,7 @@ namespace SportsStreamsBot
 				// at least a config setting makes this a bit less ugly should someone else run this some day...
 				gameTimeEastern = gameTimeEastern.AddHours(offsetFromEasternTime);
 
+				var seasonId = data[0].Substring(0, 2);
 				var month = data[2];
 				var gameId = data[3];
 				var homeStreamName = data[6];
@@ -72,7 +73,7 @@ namespace SportsStreamsBot
 				var streamUrl = data[11];
 				var feedType = (Stream.FeedTypes)Enum.Parse(typeof(Stream.FeedTypes), data[12], true);
 
-				var stream = new Stream(gameTimeEastern, homeStreamName, awayStreamName, homeCity, awayCity, streamUrl, feedType, gameId, month);
+				var stream = new Stream(gameTimeEastern, homeStreamName, awayStreamName, homeCity, awayCity, streamUrl, feedType, gameId, seasonId, month);
 
 				if (!streams.ContainsKey(stream.Key))
 				{
@@ -105,7 +106,7 @@ namespace SportsStreamsBot
 				game.HomeTeam.StreamName = gameData.HomeStreamName;
 				game.AwayTeam.City = gameData.AwayCity;
 				game.AwayTeam.StreamName = gameData.AwayStreamName;
-				game.Summary = summaryDownloader.GetGameSummary(gameData.Month, gameData.GameID);
+				game.Summary = summaryDownloader.GetGameSummary(gameData.SeasonID, gameData.Month, gameData.GameID);
 
 				if (homeStream != null)
 					game.HomeTeam.Server = GetServerNumberFromUrl(homeStream.StreamUrl);

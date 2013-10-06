@@ -8,7 +8,7 @@ namespace SportsStreamsBot
 	interface ISummaryDownloader
 	{
 
-		string GetGameSummary(string month, string gameID);
+		string GetGameSummary(string season, string month, string gameID);
 
 	}
 }
