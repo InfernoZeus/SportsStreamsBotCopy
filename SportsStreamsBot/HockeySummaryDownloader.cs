@@ -45,7 +45,9 @@ namespace SportsStreamsBot
 			{
 				using (var client = new WebClient())
 				{
+					client.Encoding = System.Text.Encoding.UTF8;
 					string contents = client.DownloadString(url);
+					contents = WebUtility.HtmlDecode(contents);
 					var document = new HtmlDocument();
 					document.LoadHtml(contents);
 					return document;
